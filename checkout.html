@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Checkout · DetectLab Premium</title>
+    <meta name="theme-color" content="#0a0d14">
+    <meta name="description" content="DetectLab Premium — €5 for one month, no automatic renewal">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/checkout.css?v=20260814-promo">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='13' fill='none' stroke='%23B8D8F0' stroke-width='1.4'/%3E%3Ccircle cx='15' cy='15' r='3.5' fill='%23E8772A'/%3E%3C/svg%3E">
+</head>
+<body>
+
+    <header class="co-header">
+        <a class="co-brand" href="index.html#map-section" aria-label="DetectLab">
+            <svg width="26" height="26" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+                <circle cx="15" cy="15" r="13" stroke="#B8D8F0" stroke-width="1.4" />
+                <circle cx="15" cy="15" r="8" stroke="#6B3FA0" stroke-width="1" />
+                <circle cx="15" cy="15" r="3.5" fill="#E8772A" />
+                <line x1="2" y1="15" x2="28" y2="15" stroke="#B8D8F0" stroke-width="0.7" opacity="0.5" />
+                <line x1="15" y1="2" x2="15" y2="28" stroke="#B8D8F0" stroke-width="0.7" opacity="0.5" />
+            </svg>
+            <span>Detect<span style="color:#E8772A">Lab</span></span>
+        </a>
+        <a class="co-back" href="index.html#map-section">← <span class="t" data-key="co_back_map">Back to map</span></a>
+    </header>
+
+    <main class="co-main">
+
+        <!-- ── LOGIN REQUIRED ── -->
+        <section class="co-card co-login-card" id="coLoginCard" style="display:none">
+            <div class="co-ico">🔐</div>
+            <h1 class="t" data-key="co_login_title">Log in to continue</h1>
+            <p class="co-muted t" data-key="co_login_desc">You need an account to purchase Premium.</p>
+            <a class="co-btn co-btn-primary" href="index.html?goto=checkout">
+                <span class="t" data-key="co_login_btn">Go to login</span>
+            </a>
+        </section>
+
+        <!-- ── CHECKOUT ── -->
+        <section class="co-grid" id="coCheckoutCard" style="display:none">
+
+            <!-- Order summary -->
+            <aside class="co-card co-summary">
+                <h2 class="co-h2 t" data-key="co_order_title">Order summary</h2>
+                <div class="co-summary-row">
+                    <div>
+                        <div class="co-plan-name t" data-key="co_plan_name">DetectLab Premium — one month</div>
+                        <div class="co-muted">👑 <span class="t" data-key="co_all_layers">All premium map layers</span></div>
+                    </div>
+                    <div class="co-price">€5<small class="vat-note vat-note-price">+TVA</small><span class="co-period t" data-key="co_period_once">one-time</span></div>
+                </div>
+                <div class="co-divider"></div>
+                <div class="co-summary-row co-total">
+                    <span class="t" data-key="co_total">Total due today</span>
+                    <strong>€5.00 <small class="vat-note">+TVA</small></strong>
+                </div>
+                <div class="co-summary-row co-summary-sub">
+                    <span class="t" data-key="co_renews">€5 <small class="vat-note">+TVA</small> for one month — no automatic renewal</span>
+                </div>
+            </aside>
+
+            <!-- Payment (redirect to Stripe's secure hosted checkout) -->
+            <div class="co-card co-pay">
+                <h2 class="co-h2 t" data-key="co_pay_title">Payment method</h2>
+
+                <div class="co-pay-box">
+                    <div class="co-pay-brand">🔒 <span class="t" data-key="co_pay_by">Pay securely with</span> <span class="co-pay-stripe">Stripe</span></div>
+                    <p class="co-pay-desc t" data-key="co_stripe_note">Cards, Apple Pay and Google Pay are accepted on Stripe's secure payment page.</p>
+
+                    <button type="button" class="co-btn co-btn-pay" id="coPayBtn">
+                        <span class="co-lock">🔒</span>
+                        <span id="coPayLabel" class="t" data-key="co_pay_btn">Pay €5.00 <small class="vat-note">+TVA</small></span>
+                    </button>
+
+                    <p class="co-secure">🔒 <span class="t" data-key="co_secure">Payments are encrypted and processed securely.</span></p>
+                    <div class="co-info" id="coInfo" style="display:none"></div>
+                    <div class="co-error" id="coError"></div>
+                </div>
+
+                <!-- ── PROMO CODE — redeem a free trial instead of paying.
+                     Wired in js/checkout.js (POST /api/promo/redeem). ── -->
+                <div class="co-promo" id="coPromoWrap">
+                    <div class="co-promo-divider"><span class="t" data-key="promo_or">or</span></div>
+                    <button type="button" class="co-promo-toggle" id="coPromoToggle"
+                            aria-expanded="false" aria-controls="coPromoForm">
+                        <span class="t" data-key="promo_have_code">Have a promo code?</span>
+                    </button>
+                    <div class="co-promo-form" id="coPromoForm" style="display:none">
+                        <label class="co-promo-label" for="coPromoInput">
+                            <span class="t" data-key="promo_label">Promo code</span>
+                        </label>
+                        <div class="co-promo-row">
+                            <input type="text" id="coPromoInput" class="co-promo-input"
+                                   placeholder="TRIAL24" autocomplete="off" autocapitalize="characters"
+                                   spellcheck="false" maxlength="64">
+                            <button type="button" class="co-btn co-btn-promo" id="coPromoBtn">
+                                <span class="t" data-key="promo_redeem_btn">Redeem</span>
+                            </button>
+                        </div>
+                        <p class="co-promo-hint t" data-key="promo_hint">Unlock Premium instantly — no payment needed.</p>
+                        <div class="co-promo-msg co-promo-ok" id="coPromoOk" style="display:none"></div>
+                        <div class="co-promo-msg co-promo-err" id="coPromoErr" style="display:none"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── REDIRECTING TO STRIPE ── -->
+        <section class="co-card co-processing" id="coRedirectCard" style="display:none">
+            <div class="co-spinner"></div>
+            <h2 class="t" data-key="co_redirecting">Taking you to Stripe's secure payment page…</h2>
+            <p class="co-muted">DetectLab Premium — €5.00 <small class="vat-note">+TVA</small></p>
+        </section>
+
+        <!-- ── PROCESSING / WAITING FOR CONFIRMATION ── -->
+        <section class="co-card co-processing" id="coProcessingCard" style="display:none">
+            <div class="co-spinner"></div>
+            <h2 class="t" data-key="co_processing">Confirming your payment…</h2>
+            <p class="co-muted t" data-key="co_processing_desc">This usually takes a few seconds.</p>
+        </section>
+
+        <!-- ── PENDING ACTIVATION (webhook slow) ── -->
+        <section class="co-card co-pending" id="coPendingCard" style="display:none">
+            <div class="co-ico">⏳</div>
+            <h1 class="t" data-key="co_pending_title">Payment received — activating Premium…</h1>
+            <p class="co-muted t" data-key="co_pending_desc">This usually takes a few seconds. If it doesn't activate, check again or go to your account.</p>
+            <div class="co-success-actions">
+                <button type="button" class="co-btn co-btn-primary" id="coCheckAgainBtn">
+                    <span class="t" data-key="co_check_again">Check again</span>
+                </button>
+                <a class="co-btn co-btn-ghost" href="index.html?open=account">
+                    <span class="t" data-key="co_go_account">Go to my account</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ── ALREADY PREMIUM ── -->
+        <section class="co-card co-pending" id="coAlreadyCard" style="display:none">
+            <div class="co-ico">👑</div>
+            <h1 class="t" data-key="co_already_title">You are already Premium</h1>
+            <p class="co-muted t" data-key="co_already_desc">Your Premium month is still active. You can buy another month once it ends.</p>
+            <div class="co-success-expiry">
+                <span class="co-muted t" data-key="co_success_expiry">Premium active until</span>
+                <strong id="coAlreadyDate">—</strong>
+            </div>
+            <div class="co-success-actions">
+                <!-- Legacy recurring subscribers only — hidden for one-time
+                     purchasers by js/checkout.js (nothing to manage). -->
+                <button type="button" class="co-btn co-btn-primary" id="coManageBtn" style="display:none">
+                    <span class="t" data-key="co_manage_billing">Manage subscription</span>
+                </button>
+                <a class="co-btn co-btn-ghost" href="index.html?open=account">
+                    <span class="t" data-key="co_go_account">Go to my account</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ── PROMO REDEEMED (free trial unlocked, no payment) ── -->
+        <section class="co-card co-success" id="coPromoSuccessCard" style="display:none">
+            <div class="co-success-check">🎁</div>
+            <h1 class="t" data-key="promo_success_title">Promo code redeemed!</h1>
+            <p class="co-muted t" data-key="promo_success_desc">Premium is unlocked on your account — no payment was taken.</p>
+            <div class="co-success-expiry">
+                <span class="co-muted t" data-key="co_success_expiry">Premium active until</span>
+                <strong id="coPromoSuccessDate">—</strong>
+            </div>
+            <div class="co-success-actions">
+                <a class="co-btn co-btn-primary" href="index.html#map-section">
+                    <span class="t" data-key="promo_go_map">Start exploring the map</span>
+                </a>
+                <a class="co-btn co-btn-ghost" href="index.html?open=account">
+                    <span class="t" data-key="co_go_account">Go to my account</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ── SUCCESS ── -->
+        <section class="co-card co-success" id="coSuccessCard" style="display:none">
+            <div class="co-success-check">✓</div>
+            <h1 class="t" data-key="co_success_title">Payment confirmed!</h1>
+            <p class="co-muted t" data-key="co_success_desc">Your account is Premium for one month. Enjoy every premium layer.</p>
+            <div class="co-success-expiry">
+                <span class="co-muted t" data-key="co_success_expiry">Premium active until</span>
+                <strong id="coSuccessDate">—</strong>
+            </div>
+            <p class="co-muted t" data-key="co_no_renewal">No automatic renewal — you will not be charged again.</p>
+            <div class="co-success-actions">
+                <!-- Legacy recurring subscribers only — hidden for one-time
+                     purchasers by js/checkout.js (nothing to manage). -->
+                <button type="button" class="co-btn co-btn-primary" id="coSuccessManageBtn" style="display:none">
+                    <span class="t" data-key="co_manage_billing">Manage subscription</span>
+                </button>
+                <a class="co-btn co-btn-ghost" href="index.html?open=account">
+                    <span class="t" data-key="co_go_account">Go to my account</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="co-footer">
+        <span class="t" data-key="co_footer">DetectLab · Saving history together</span>
+    </footer>
+
+    <script src="js/translations.js?v=20260814-promo"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js?v=20260814-promo"></script>
+    <script src="js/subscriptions.js?v=20260814-promo"></script>
+    <script src="js/checkout.js?v=20260814-promo"></script>
+</body>
+</html>
