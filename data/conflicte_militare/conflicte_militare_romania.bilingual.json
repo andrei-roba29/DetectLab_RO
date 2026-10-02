@@ -4,7 +4,7 @@
   "descriere": "Conflicte militare de pe teritoriul actual al României, sec. VIII î.Hr. – 1944 (RO + EN)",
   "sursa_principala": "batalii.csv + completări din istoriografia consacrată",
   "generat": "2026-09-01",
-  "numar_inregistrari": 198,
+  "numar_inregistrari": 201,
   "structura": "câmpuri comune + blocuri `ro` și `en` cu câmpurile textuale"
  },
  "conflicte": [
@@ -5947,6 +5947,96 @@
     "descriere": "A series of violent attrition battles between the German-Romanian and Soviet troops. The Battle of Târgu Frumos was a large-scale armoured clash, where the German and Romanian troops temporarily managed to stop the advance of the Soviet tanks.",
     "rezultat": "Temporary halt of the Soviet offensive"
    }
+  },
+ {
+  "id": "RM-199",
+  "data_start": "1692",
+  "data_end": "1692",
+  "an_start": 1692,
+  "an_end": 1692,
+  "secol_n": 17,
+  "lat": 47.05,
+  "lng": 21.93,
+  "zona_aprox": 0,
+  "teritoriu": "da",
+  "ro": {
+   "titlu": "Asediul Oradiei (1692)",
+   "tip": "Asediu",
+   "locatie": "Oradea (județul Bihor)",
+   "regiune": "Crișana",
+   "participanti": "Forțele Sfintei Ligi, conduse de Habsburgi, vs. garnizoana Imperiului Otoman",
+   "descriere": "În Marele Război Turcesc (1683–1699), armata habsburgică — principalul contingent al Sfintei Ligi — a asediat Oradea, fortăreață otomană importantă. După capitularea garnizoanei în 1692, orașul a trecut sub control habsburgic, consolidând înaintarea Ligii în Crișana.",
+   "rezultat": "Victorie habsburgică; Oradea ocupată de trupele Sfintei Ligi"
+  },
+  "en": {
+   "titlu": "Siege of Oradea (1692)",
+   "tip": "Siege",
+   "locatie": "Oradea (Bihor County)",
+   "regiune": "Crișana",
+   "participanti": "Holy League forces led by the Habsburgs vs. the Ottoman garrison",
+   "descriere": "During the Great Turkish War (1683–1699), the Habsburg army — the Holy League’s principal contingent — besieged Oradea, an important Ottoman fortress. After the garrison capitulated in 1692, the city came under Habsburg control, consolidating the League’s advance in Crișana.",
+   "rezultat": "Habsburg victory; Oradea occupied by Holy League troops"
   }
+ },
+ {
+  "id": "RM-200",
+  "data_start": "1695",
+  "data_end": "1695",
+  "an_start": 1695,
+  "an_end": 1695,
+  "secol_n": 17,
+  "lat": 45.69,
+  "lng": 21.9,
+  "zona_aprox": 1,
+  "teritoriu": "da",
+  "ro": {
+   "titlu": "Bătălia de la Lugoj (1695)",
+   "tip": "Bătălie",
+   "locatie": "Lugoj (județul Timiș)",
+   "regiune": "Banat",
+   "participanti": "Armata habsburgică (Sfânta Ligă) vs. Imperiul Otoman",
+   "descriere": "În timpul Marelui Război Turcesc, trupele habsburgice au încercat să mențină presiunea asupra Banatului otoman. La Lugoj, armata imperială a fost înfrântă de forțele otomane, iar victoria a întărit temporar poziția otomană în regiune.",
+   "rezultat": "Victorie otomană"
+  },
+  "en": {
+   "titlu": "Battle of Lugoj (1695)",
+   "tip": "Battle",
+   "locatie": "Lugoj (Timiș County)",
+   "regiune": "Banat",
+   "participanti": "Habsburg army (Holy League) vs. the Ottoman Empire",
+   "descriere": "During the Great Turkish War, Habsburg troops attempted to maintain pressure on the Ottoman Banat. At Lugoj, the imperial army was defeated by Ottoman forces, temporarily strengthening the Ottoman position in the region.",
+   "rezultat": "Ottoman victory"
+  }
+ },
+ {
+  "id": "RM-201",
+  "data_start": "1696",
+  "data_end": "1696",
+  "an_start": 1696,
+  "an_end": 1696,
+  "secol_n": 17,
+  "lat": 45.78,
+  "lng": 20.96,
+  "zona_aprox": 1,
+  "teritoriu": "da",
+  "ro": {
+   "titlu": "Bătălia de la Cenei (1696)",
+   "tip": "Bătălie",
+   "locatie": "Cenei (județul Timiș)",
+   "regiune": "Banat",
+   "participanti": "Armata habsburgică (Sfânta Ligă) vs. Imperiul Otoman",
+   "descriere": "Confruntare din Marele Război Turcesc, desfășurată în Banatul aflat atunci sub stăpânire otomană. Forțele habsburgice ale Sfintei Ligi au obținut o victorie locală asupra trupelor otomane, în cadrul ofensivei pentru controlul Banatului.",
+   "rezultat": "Victorie habsburgică"
+  },
+  "en": {
+   "titlu": "Battle of Cenei (1696)",
+   "tip": "Battle",
+   "locatie": "Cenei (Timiș County)",
+   "regiune": "Banat",
+   "participanti": "Habsburg army (Holy League) vs. the Ottoman Empire",
+   "descriere": "A clash of the Great Turkish War fought in the Ottoman-ruled Banat. The Habsburg forces of the Holy League won a local victory over Ottoman troops as part of the campaign for control of the Banat.",
+   "rezultat": "Habsburg victory"
+  }
+ }
  ]
 }
