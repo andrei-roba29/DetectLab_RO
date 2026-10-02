@@ -338,7 +338,20 @@
             try { actionsEl = document.getElementById('verticalOpacityActions'); } catch (e) { actionsEl = null; }
         }
         var activeId = activeSource ? activeSource.id : null;
-        var wanted = (activeId && LAYER_ACTION_MAP[activeId]) ? LAYER_ACTION_MAP[activeId] : [];
+        /* Keep Josephine's actions attached to Josephine's mirror when a
+           second historical layer becomes the active slot. Otherwise the
+           generic active-slot logic moves the buttons away and the Josephine
+           slider appears to lose them until the second mirror is removed. */
+        var josephineSlot = slotForSource(document.getElementById('josephineOpacitySlider'));
+        if (josephineSlot && josephineSlot.control && josephineSlot.control.classList.contains('visible')) {
+            var josephineIsActive = activeId === 'josephineOpacitySlider';
+            if (!josephineIsActive) {
+                actionsEl = josephineSlot.actions || actionsEl;
+            }
+        }
+        var actionSourceId = (josephineSlot && josephineSlot.control && josephineSlot.control.classList.contains('visible'))
+            ? 'josephineOpacitySlider' : activeId;
+        var wanted = (actionSourceId && LAYER_ACTION_MAP[actionSourceId]) ? LAYER_ACTION_MAP[actionSourceId] : [];
         var wantedSet = {};
         for (var w = 0; w < wanted.length; w++) wantedSet[wanted[w]] = true;
         var controlVisible = false;
@@ -520,19 +533,13 @@
 
     function isVerticalActiveFor(sliderId) {
         try {
-            if (!(activeSource && activeSource.id === sliderId &&
-                control && control.classList.contains('visible'))) {
-                return false;
-            }
-            /* Un slot în curs de DEMOLARE nu mai e activ: la închiderea cu
-               „×”/Escape slotul e scos din mirrorSlots ÎNAINTE ca stratul lui
-               să fie oprit (clearSlot dispatch-uiește „change” pe comutator),
-               iar modulele de analiză care verifică această funcție chiar în
-               timpul acelei închideri nu trebuie să-și mai vadă oglinda moartă
-               ca prezentă — altfel ar putea decide că a lor e ultima oglindă
-               și să închidă (și) oglinzile celorlalte straturi. */
+            /* A layer remains vertically active while its own mirror is visible,
+               even when another layer is selected in the second slot. The
+               previous activeSource-only check hid Josephine's quick-action
+               buttons as soon as a second historical slider was added. */
             var source = document.getElementById(sliderId);
-            return !!(source && slotForSource(source));
+            var slot = source ? slotForSource(source) : null;
+            return !!(slot && slot.control && slot.control.classList.contains('visible'));
         } catch (e) {
             return false;
         }
