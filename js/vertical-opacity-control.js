@@ -31,6 +31,7 @@
         lidarDj917OpacitySlider: 'DJ · LAKI III',
         lidarGj917OpacitySlider: 'GJ · LAKI III',
         lidarMh917OpacitySlider: 'MH · LAKI III',
+        lidarWorldHillshadeOpacitySlider: 'World Hillshade',
         romanOpacitySlider: 'Roman Empire',
         josephineOpacitySlider: 'Josephine Map +',
         bucovinaMapOpacitySlider: 'Bucovina 1861–1864',
@@ -120,7 +121,8 @@
         lidarCs917OpacitySlider: 'cs917',
         lidarDj917OpacitySlider: 'dj917',
         lidarGj917OpacitySlider: 'gj917',
-        lidarMh917OpacitySlider: 'mh917'
+        lidarMh917OpacitySlider: 'mh917',
+        lidarWorldHillshadeOpacitySlider: 'worldHillshade'
     };
 
     /* ── OGLINZI DE DISTANȚĂ / RAZĂ + DOCK DE ACȚIUNE ──
