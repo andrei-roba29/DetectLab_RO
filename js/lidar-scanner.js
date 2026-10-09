@@ -5,7 +5,7 @@
  */
 (function () {
     'use strict';
-    var DATA_URL = 'data/lidar_scanner_points.csv?v=20260927-deduplicate-fortification';
+    var DATA_URL = 'data/lidar_scanner_points.csv?v=20261009-world-hillshade-4points';
     var HERITAGE_RADIUS_M = 600;
     var map = null, resultsLayer = null, selectedMarker = null, selectionCircle = null;
     var points = [], selected = null, active = false, scanning = false, pointsPromise = null;

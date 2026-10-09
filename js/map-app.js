@@ -5614,6 +5614,15 @@
                     minZoom: 9,
                     leafletLayer: null
                 },
+                worldHillshade: {
+                    label: 'World Hillshade',
+                    enabled: false,
+                    opacity: 0,
+                    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}',
+                    maxNativeZoom: 16,
+                    attribution: '© Esri, Airbus DS, USGS, NGA, NASA, CGIAR, N Robinson, NCEAS, NLS, OS, NMA, Geodatastyrelsen, Rijkswaterstaat, GSA, Geoland, FEMA, Intermap and the GIS user community',
+                    leafletLayer: null
+                },
 
             };
 
@@ -5682,7 +5691,7 @@
                 return L.tileLayer(cfg.url, _lidarPerfOptions({
                     opacity: cfg.opacity,
                     pane: 'pane_lidar',
-                    attribution: '© LIDAR ' + cfg.label,
+                    attribution: cfg.attribution || ('© LIDAR ' + cfg.label),
                     maxZoom: 20,
                     maxNativeZoom: cfg.maxNativeZoom !== undefined ? cfg.maxNativeZoom : 18,
                     minZoom: cfg.minZoom !== undefined ? cfg.minZoom : 0,
@@ -6173,8 +6182,25 @@
                 if (window._updateDj917ZoomHint) window._updateDj917ZoomHint();
             };
 
+            // ── Public: World Hillshade opacity slider ──
+            window.setLidarWorldHillshadeOpacity = function(val) {
+                var opacity = val / 100;
+                var cfg = LIDAR_SUB_LAYERS['worldHillshade'];
+                if (!cfg) return;
+                cfg.opacity = opacity;
+                var pctEl = document.getElementById('lidarWorldHillshadePct');
+                if (pctEl) pctEl.textContent = val + '%';
+                if (cfg.leafletLayer) {
+                    cfg.leafletLayer.options.opacity = opacity;
+                    if (cfg.leafletLayer.setOpacity) cfg.leafletLayer.setOpacity(opacity);
+                }
+                if (val > 0 && !cfg.enabled) { window.toggleLidarSub('worldHillshade', true); }
+                var masterToggle = document.getElementById('lidarToggle');
+                if (masterToggle && val > 0 && !_lidarVisible) { masterToggle.checked = true; window.toggleLidarLayer(true); }
+            };
+
             map.on('zoomend', function() {
-                ['ar', 'hd', 'ab', 'bh', 'cs', 'ro2m', 'ro1m', 'cs917', 'dj917', 'gj917', 'mh917'].forEach(function(key) {
+                ['ar', 'hd', 'ab', 'bh', 'cs', 'ro2m', 'ro1m', 'cs917', 'dj917', 'gj917', 'mh917', 'worldHillshade'].forEach(function(key) {
                     var cfg = LIDAR_SUB_LAYERS[key];
                     if (cfg && cfg.leafletLayer && cfg.enabled && _lidarVisible) {
                         cfg.leafletLayer.options.opacity = cfg.opacity;
@@ -11123,7 +11149,8 @@
                     cs917: [[44.70, 21.50], [45.60, 22.80]],
                     dj917: [[43.90, 23.00], [44.80, 24.50]],
                     gj917: [[44.60, 22.70], [45.50, 24.00]],
-                    mh917: [[44.30, 22.20], [45.00, 23.20]]
+                    mh917: [[44.30, 22.20], [45.00, 23.20]],
+                    worldHillshade: [[43.5, 19.5], [48.5, 30.5]]
                 };
 
                 // Central config: each leaf layer with its bounds and row getter
@@ -11225,7 +11252,8 @@
                         cs917: 'lidarCs917OpacitySlider',
                         dj917: 'lidarDj917OpacitySlider',
                         gj917: 'lidarGj917OpacitySlider',
-                        mh917: 'lidarMh917OpacitySlider'
+                        mh917: 'lidarMh917OpacitySlider',
+                        worldHillshade: 'lidarWorldHillshadeOpacitySlider'
                     };
                     var realSliderId = mapping[k] || sliderId;
                     layerDefs.push({
